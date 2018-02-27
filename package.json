@@ -22,9 +22,10 @@
   ],
   "main": "dist/lib/index.js",
   "keywords": [
-    "package",
-    "skeleton",
-    "example",
+    "accessibility",
+    "react",
+    "redux",
+    "router",
     "node",
     "npm",
     "babel",
@@ -34,7 +35,6 @@
     "codecov",
     "coverage",
     "eslint",
-    "gemnasium",
     "istanbul",
     "mocha"
   ],
