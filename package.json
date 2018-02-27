@@ -1,0 +1,69 @@
+{
+  "name": "package-skeleton",
+  "version": "1.0.4",
+  "description": "Skeleton of a simple NPM Package with Babel and CI already configured.",
+  "license": "ISC",
+  "repository": "amercier/npm-package-skeleton",
+  "author": "Alex Mercier <pro.alexandre.mercier@gmail.com> (http://amercier.com)",
+  "engines": {
+    "node": ">=4.0"
+  },
+  "scripts": {
+    "transpile": "rimraf dist && babel src -d dist",
+    "prepublish": "npm run transpile",
+    "doc": "rimraf esdoc && esdoc -c esdoc.json",
+    "lint": "eslint .",
+    "mocha": "mocha specs --recursive --compilers js:babel-register",
+    "start": "export NODE_ENV=development; npm run mocha -- --watch --growl",
+    "test": "export NODE_ENV=test; npm run lint && rimraf coverage && nyc npm run mocha"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/lib/index.js",
+  "keywords": [
+    "package",
+    "skeleton",
+    "example",
+    "node",
+    "npm",
+    "babel",
+    "ci",
+    "code",
+    "codeclimate",
+    "codecov",
+    "coverage",
+    "eslint",
+    "gemnasium",
+    "istanbul",
+    "mocha"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-plugin-istanbul": "^4.1.5",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "codecov": "^3.0.0",
+    "esdoc": "^1.0.4",
+    "esdoc-standard-plugin": "^1.0.0",
+    "eslint": "^4.14.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "mocha": "^4.1.0",
+    "nyc": "^11.4.1",
+    "rimraf": "^2.6.2",
+    "sinon": "^4.1.3"
+  },
+  "nyc": {
+    "sourceMap": false,
+    "instrument": false,
+    "reporter": [
+      "lcovonly",
+      "html",
+      "text"
+    ]
+  }
+}
