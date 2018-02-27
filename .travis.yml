@@ -2,29 +2,34 @@ sudo: false
 language: node_js
 matrix:
   include:
-    - node_js: node # Current
-      env: BUILD_DOCS=true REPORT_COVERAGE=true
-    - node_js: --lts # LTS
-      env: NPM_DEPLOY=true
-    - node_js: 4 # Minimum required
+  - node_js: node
+    env: BUILD_DOCS=true REPORT_COVERAGE=true
+  - node_js: "--lts"
+    env: NPM_DEPLOY=true
+  - node_js: 4
 before_script:
-  - '[[ "$REPORT_COVERAGE" != true ]] || curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter'
+  - '[[ "$REPORT_COVERAGE" != true ]] || curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+    > ./cc-test-reporter'
   - '[[ "$REPORT_COVERAGE" != true ]] || chmod +x ./cc-test-reporter'
   - '[[ "$REPORT_COVERAGE" != true ]] || ./cc-test-reporter before-build'
 script:
   - npm test -- -- --timeout 10000
-  - '[[ "$BUILD_DOCS" != true ]] || npm run doc' # Ensures ESDoc generation doesn't fail
+  - '[[ "$BUILD_DOCS" != true ]] || npm run doc'
   - '[[ "$REPORT_COVERAGE" != true ]] || codecov'
 after_script:
   - '[[ "$REPORT_COVERAGE" != true ]] || ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT'
 deploy:
   provider: npm
-  email: pro.alexandre.mercier@gmail.com
-  api_key: $NPM_AUTH_TOKEN
+  email: signsfive.deaf@gmail.com
+  api_key:
+    secure: b+8XR0O7INtW3d39Ptf2DNzc98UQPXJ5eKlICW58HWnR/YJKufoKCjKCvsZZ7j4P7EIzmb/50z3JkX3BI76AkmLVtL7Ye/LGe0KITkKwFWAy82QkNMzAZmkwekfu0Y6RdheUO5pExJ+9nXhH0c/gZcUN7x19wJXTdrc5wwfMFwSc0Lbxx3n2fOhSkf/M6v8ZbGmRzEQrpZCPYlxdmTqQX2dLnsXxVVRT54UDvAITqL1wtvBXsAXvGK9cfRj8wqgYS1t3yLPSy+xSiMt3TjCq5AwdcyMzp+mmIIIjw1NCrrnxG3j6KvmoKjsw6JwMqeK9d2tCMihtJ/jnonV16FNHwoKUdYGLw7byFYR3WfQVRMT5b8m+jeFNsuaaGZsYdrDr4b2siGnprX47WdbaGdQI32PraX85L6TsHYiCpFGCDV0MgxwKaThP3CXIvivK/Kr2+oCM7/tOnynrX1VmaZ2/0KodUblKCTGFV14MdW2GDil6J2pIpxHbxkyzjhwlWUUYb8RKsUKkJ8/dCFg1BMG7Z3fp10msed3rE9NCv2zXM5bbf8dZVzadOksMgNE19b7Spj3t2QvF3d705O/1Q3q2jLdpAdCrBMXhdMg0a3ZAEPP+soxeqYv6Nkb5slUBXGhz0kPfTAqEJr0KPu5u4d5+hdUEAfsrDcnKHSKb0ISK+5E=
   on:
     tags: true
-    repo: amercier/npm-package-skeleton # Prevents publishing on PRs
-    condition: $NPM_DEPLOY = true # Prevents publishing on each matrix build
+    repo: cd2bit/a11y-react-redux-router
+    condition: "$NPM_DEPLOY = true"
 cache:
   directories:
-    - $HOME/.nvm
+    - "$HOME/.nvm"
+env:
+  matrix:
+    secure: VbSJWck/MW/BLUu5aIxFNfbibAARxu8gPOHYi57zIE+Nf5KkPgUgaaFmCR6wZI2qa0vTcbuAGETxJxSOJDPtUuqMp8IYqoiaw94asLLj7tCyXaoB2qmvQ2WMccXCOqYLIyiwx/leuro3v1IjK8KNv3qJwX5nDtslyih5k5XJtRpPlReP65sap9GZk/kLJECcjOdcRmWdCzTOdnePPHLudN8eDQPtlt2RXRkBNVznJ/4gZbISDiV06iaPK6DsUupJD+bPSnnV0Lwq50cyWS4vqgOzesIXMlJkZ4WiKg+jPcBdmChRxXXOaJwWFZC/VMiAJk49QXrkv/mCsRq+jdwOrl2rRW/7cdPG09GDS9FdkxcWeb3pn3Amw6PwgE/RumEIYQ8/xU8ijv2n2mNcHDAEZMcECmwz2ih8n7w04iVHDBEhCfORzvfW8HKGjSA/g2gH9kViOQjtQRINO90e6Kr2CBOJU2tdJhwly20a3fyPWGlrCVjpecdWf1iwBLeB1ni0SPXXNRBNnP/8L5il23aydKPwjR88mnenll77PSAWV2aFif8inLo3lX1SG5rZDkKXIlTGJQyymlGp+T4Go8gVNOc1BL8OxLv/LjqWB6KoLr+k0JCbcZpGBHSl0ZsfBOcd1LGHenByCym4hbjBDtj23RzDvfiJJKWduR/nSzMg3io=
