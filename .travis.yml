@@ -27,6 +27,7 @@ deploy:
     tags: true
     repo: cd2bit/a11y-react-redux-router
     condition: "$NPM_DEPLOY = true"
+  skip_cleanup: true
 cache:
   directories:
     - "$HOME/.nvm"
